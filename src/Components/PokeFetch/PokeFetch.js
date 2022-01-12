@@ -33,9 +33,8 @@ export default class PokeFetch extends Component {
       .catch((err) => console.log(err))
   }
 
-  //Timer that counts down from 10 seconds
-
   startTime = () => {
+    clearInterval(this.state.timerInterval)
     this.fetchPokemon()
     this.setState({ timerOn: true, pokemonRevealed: false })
     this.setState({ timer: 10 })
@@ -52,15 +51,9 @@ export default class PokeFetch extends Component {
           this.setState({
             timerOn: false,
           })
-          clearInterval(this.state.timerInterval)
         }
       }, 1000)
     })
-  }
-
-  stopTime = () => {
-    this.setState({ timerOn: false })
-    clearInterval(this.state.timerInterval)
   }
 
   render() {
@@ -72,13 +65,10 @@ export default class PokeFetch extends Component {
               <h1 className={'timer'}>{this.state.timer}</h1>
             </div>
       <div className={'pokeWrap'}>
-        <img className={'pokeImg'} src={this.state.pokeSprite } />
-        <h1 className={'pokeName'}>{this.state.pokeName}</h1>
+        <img className={this.state.pokemonRevealed ? 'pokePic' : 'pokeImg'} src={this.state.pokeSprite} />
+        <h1 className={this.state.pokemonRevealed ? 'pokeName' : 'pokemonName'}>{this.state.pokeName}</h1>
       </div>
     </div>
   )
 }
 }
-
-// onClick={() => this.fetchPokemon()}>Start!</button>
-//{this.state.timerOn ? 'timerVisible' : 'timerHidden'}>{this.state.timer}</h1>
